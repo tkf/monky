@@ -661,10 +661,13 @@ If TYPE is nil, the section won't be highlighted."
   (declare (indent 0)
            (debug (body)))
   `(let ((inhibit-read-only t))
+     (message "1. id = %s" (monky-hg-lines "id"))
      (erase-buffer)
      (let ((monky-old-top-section monky-top-section))
        (setq monky-top-section nil)
+       (message "2. id = %s" (monky-hg-lines "id"))
        ,@body
+       (message "3. id = %s" (monky-hg-lines "id"))
        (when (null monky-top-section)
          (monky-with-section 'top nil
            (insert "(empty)\n")))
@@ -2300,6 +2303,7 @@ With a non numeric prefix ARG, show all entries"
 
 ;;; Qdiff
 (defun monky-insert-queue-discarding ()
+  (message "2. monky-qtip-p = %s" (monky-qtip-p))
   (when monky-qtip-p-cached
     (setq monky-queue-old-staged-files (copy-list monky-queue-staged-files))
     (setq monky-queue-staged-files '())
@@ -2310,6 +2314,7 @@ With a non numeric prefix ARG, show all entries"
                         "--rev" "qtip"))))
 
 (defun monky-insert-queue-staged-changes ()
+  (message "3. monky-qtip-p = %s" (monky-qtip-p))
   (when (and monky-qtip-p-cached
              (or monky-queue-staged-files monky-staged-files))
     (monky-with-section 'queue-staged nil
@@ -2351,8 +2356,10 @@ With a non numeric prefix ARG, show all entries"
   (setq monky-queue-staged-files (delete file monky-queue-staged-files)))
 
 (defun monky-refresh-queue-buffer ()
+  (message "1. monky-qtip-p = %s" (monky-qtip-p))
   (setq monky-qtip-p-cached (monky-qtip-p)) ; not working inside macro?
   (monky-create-buffer-sections
+    (message "4. id = %s" (monky-hg-lines "id"))
     (monky-with-section 'queue nil
       (monky-insert-untracked-files)
       (monky-insert-missing-files)
