@@ -354,6 +354,7 @@ refreshes buffers."
       (vconcat str))))
 
 (defun monky-cmdserver-read ()
+  "Read one channel and return cons (CHANNEL . RAW-DATA)."
   (let* ((data (bindat-unpack '((channel byte) (len u32))
                               (monky-cmdserver-read-data 5)))
          (channel (bindat-get-field data 'channel))
