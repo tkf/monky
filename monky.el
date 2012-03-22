@@ -423,7 +423,7 @@ refreshes buffers."
   "Get encoding stored in `monky-cmd-hello-message'."
   (let ((e (assoc 'encoding monky-cmd-hello-message)))
     (if e
-        (intern (cdr e))
+        (intern (downcase (cdr e)))
       default)))
 
 (defun monky-cmdserver-runcommand (&rest cmd-and-args)
@@ -2051,6 +2051,8 @@ PROPERTIES is the arguments for the function `propertize'."
   (monky-with-process
     (let ((topdir (monky-get-root-dir)))
       (pop-to-buffer monky-log-buffer-name)
+      (setq default-directory topdir
+            monky-root-dir topdir)
       (monky-mode-init topdir 'log #'monky-refresh-log-buffer)
       (monky-log-mode t))))
 
