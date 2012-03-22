@@ -2051,6 +2051,8 @@ PROPERTIES is the arguments for the function `propertize'."
   (monky-with-process
     (let ((topdir (monky-get-root-dir)))
       (pop-to-buffer monky-log-buffer-name)
+      (setq default-directory topdir
+            monky-root-dir topdir)
       (monky-mode-init topdir 'log #'monky-refresh-log-buffer)
       (monky-log-mode t))))
 
