@@ -202,6 +202,11 @@ Many Monky faces inherit from this one by default."
   "Face for tag labels shown in log buffer."
   :group 'monky-faces)
 
+(defface monky-queue-patch
+  '((t :weight bold :inherit (monky-header highlight)))
+  "Face for patch name"
+  :group 'monky)
+
 (defface monky-log-head-label-bookmarks
   '((((class color) (background light))
      :box t
@@ -225,11 +230,6 @@ Many Monky faces inherit from this one by default."
      :foreground "dark olive green"))
   "Face for phase label shown in log buffer."
   :group 'monky-faces)
-
-(defface monky-queue-patch
-  '((t :weight bold :inherit (monky-header highlight)))
-  "Face for patch name"
-  :group 'monky)
 
 (defface monky-queue-active
   '((((class color) (background light))
