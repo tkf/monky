@@ -610,6 +610,7 @@ FUNC should leave point at the end of the modified region"
     (define-key map (kbd "b") 'monky-branches)
     (define-key map (kbd "Q") 'monky-queue)
     (define-key map (kbd "q") 'monky-quit-window)
+    (define-key map (kbd "@") 'monky-open-hgrc)
     map))
 
 (defvar monky-status-mode-map
@@ -2884,6 +2885,12 @@ With a non numeric prefix ARG, show all entries"
   (if (not (or monky-staged-files (monky-merge-p)))
       (error "Nothing staged")
     (monky-pop-to-log-edit 'commit)))
+
+
+(defun monky-open-hgrc ()
+  "Open .hg/hgrc file."
+  (interactive)
+  (find-file (concat (monky-get-root-dir) ".hg/hgrc")))
 
 (provide 'monky)
 
